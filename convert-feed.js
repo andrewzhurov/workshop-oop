@@ -1,9 +1,6 @@
-#!/usr/bin/env node
-const i = require('immutable');
-const index = require('./index');
+//#!/usr/bin/env node --experimental-modules
+const parse = require('./index.js');
 const fs = require('fs');
-const parser = require('xml2json');
-const utils = require('./utils');
 /**
  * Module dependencies.
  */
@@ -29,14 +26,4 @@ program
 
 const pathToFile = program.args[0];
 console.log("PATH:" + pathToFile);
-console.log("SET:" + utils.setIn({'a': {'b': 1}}, ['a', 'b'], 2));
-
-utils.updateIn({'a': {'b': 2}}, ["a", "b"], val => val)
-
-const feed = i.fromJS(parser.toJson(fs.readFileSync(pathToFile, "utf8")));
-console.log("IM MAP:" + i.Map({"a": 1}));
-console.log("FEED:" + JSON.stringify(i.Map(feed)))
-
-const result = index.main(feed, "reverse");
-
-fs.writeFileSync('out.xml', result);
+console.log(`Out is: ${fs.readFile(pathToFile)}`);
